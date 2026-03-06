@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Image Converter</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0f0f13;
+      color: #e4e4e7;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 1.75rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #fff;
+    }
+
+    .subtitle {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #71717a;
+      margin-bottom: 2rem;
+    }
+
+    .status {
+      text-align: center;
+      padding: 0.6rem 1rem;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      margin-bottom: 1.5rem;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .status.info { background: #1e1e2e; color: #a1a1aa; }
+    .status.success { background: #052e16; color: #4ade80; }
+    .status.error { background: #2d0a0a; color: #f87171; }
+
+    .dropzone {
+      max-width: 800px;
+      margin: 0 auto 1.5rem;
+      border: 2px dashed #27272a;
+      border-radius: 12px;
+      padding: 2rem;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .dropzone:hover, .dropzone.dragover {
+      border-color: #6366f1;
+      background: rgba(99, 102, 241, 0.05);
+    }
+    .dropzone-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+    .dropzone-text { color: #71717a; font-size: 0.9rem; }
+    .dropzone-text strong { color: #a5b4fc; }
+
+    .controls {
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      max-width: 800px;
+      margin: 0 auto 2rem;
+    }
+    .control-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+    .control-group label {
+      font-size: 0.75rem;
+      color: #71717a;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    select, input[type="number"] {
+      background: #1e1e2e;
+      border: 1px solid #27272a;
+      color: #e4e4e7;
+      padding: 0.5rem 0.75rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      outline: none;
+      min-width: 100px;
+    }
+    select:focus, input[type="number"]:focus {
+      border-color: #6366f1;
+    }
+
+    .btn {
+      padding: 0.55rem 1.25rem;
+      border-radius: 8px;
+      border: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: opacity 0.15s, transform 0.1s;
+    }
+    .btn:hover:not(:disabled) { opacity: 0.9; }
+    .btn:active:not(:disabled) { transform: scale(0.97); }
+    .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    .btn-primary { background: #6366f1; color: #fff; }
+    .btn-success { background: #10b981; color: #fff; }
+    .btn-ghost { background: #27272a; color: #a1a1aa; }
+
+    .preview-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    @media (max-width: 700px) {
+      .preview-grid { grid-template-columns: 1fr; }
+    }
+
+    .preview-card {
+      background: #18181b;
+      border: 1px solid #27272a;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .preview-header {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid #27272a;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #71717a;
+    }
+    .preview-body {
+      position: relative;
+      min-height: 280px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      background: repeating-conic-gradient(#1a1a1f 0% 25%, #16161b 0% 50%) 50% / 20px 20px;
+    }
+    .preview-body img {
+      max-width: 100%;
+      max-height: 350px;
+      border-radius: 4px;
+      display: none;
+    }
+    .placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: #52525b;
+      font-size: 0.85rem;
+    }
+    .placeholder-icon { font-size: 2.5rem; opacity: 0.5; }
+
+    .preview-footer {
+      padding: 0.6rem 1rem;
+      border-top: 1px solid #27272a;
+      font-size: 0.8rem;
+      color: #71717a;
+    }
+
+    input[type="file"] { display: none; }
+  </style>
+</head>
+<body>
+  <h1>Image Converter</h1>
+  <p class="subtitle">Upload an image, choose a format, and convert instantly</p>
+
+  <div id="status" class="status info">Upload an image to get started</div>
+
+  <div id="dropzone" class="dropzone">
+    <div class="dropzone-icon">📁</div>
+    <div class="dropzone-text">
+      <strong>Click to browse</strong> or drag & drop an image here<br />
+      PNG, JPG, WEBP, BMP, TIFF
+    </div>
+  </div>
+  <input type="file" id="fileInput" accept="image/*" />
+
+  <div class="controls">
+    <div class="control-group">
+      <label>Output Format</label>
+      <select id="formatSelect">
+        <option value="0">PNG</option>
+        <option value="1">JPEG</option>
+        <option value="2" selected>WebP</option>
+        <option value="3">BMP</option>
+        <option value="4">TIFF</option>
+      </select>
+    </div>
+    <div class="control-group">
+      <label>JPEG Quality</label>
+      <input type="number" id="qualityInput" value="90" min="1" max="100" />
+    </div>
+    <div class="control-group">
+      <label>Width (px)</label>
+      <input type="number" id="widthInput" placeholder="auto" min="1" />
+    </div>
+    <div class="control-group">
+      <label>Height (px)</label>
+      <input type="number" id="heightInput" placeholder="auto" min="1" />
+    </div>
+    <button id="convertBtn" class="btn btn-primary" disabled>Convert</button>
+    <button id="downloadBtn" class="btn btn-success" disabled>Download</button>
+    <button id="clearBtn" class="btn btn-ghost">Clear</button>
+  </div>
+
+  <div class="preview-grid">
+    <div class="preview-card">
+      <div class="preview-header">Original</div>
+      <div class="preview-body">
+        <img id="originalImage" alt="Original" />
+        <div id="originalPlaceholder" class="placeholder">
+          <span class="placeholder-icon">📷</span>
+          <span>Upload an image above</span>
+        </div>
+      </div>
+      <div class="preview-footer" id="originalInfo">No file selected</div>
+    </div>
+
+    <div class="preview-card">
+      <div class="preview-header">Converted</div>
+      <div class="preview-body">
+        <img id="convertedImage" alt="Converted" />
+        <div id="convertedPlaceholder" class="placeholder">
+          <span class="placeholder-icon">🖼️</span>
+          <span>Converted image will appear here</span>
+        </div>
+      </div>
+      <div class="preview-footer" id="convertedInfo">Waiting for conversion...</div>
+    </div>
+  </div>
+
+  <script src="dist/app.js"></script>
+</body>
+</html>
