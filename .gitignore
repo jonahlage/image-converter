@@ -4,3 +4,7 @@ obj/
 *.suo
 .vs/
 node_modules/
+
+# Environment-specific
+appsettings.Development.json
+.env

@@ -1,0 +1,11 @@
+**/.git
+**/bin
+**/obj
+**/node_modules
+**/dist
+**/.vs
+*.user
+*.suo
+frontend/
+*.md
+.gitignore

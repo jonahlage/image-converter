@@ -173,7 +173,7 @@
 
     input[type="file"] { display: none; }
   </style>
-<script type="text/javascript" nonce="8637474d039d40ec9f817324a9e" src="//local.adguard.org?ts=1772820455602&amp;type=content-script&amp;dmn=ppl-ai-code-interpreter-files.s3.amazonaws.com&amp;url=https%3A%2F%2Fppl-ai-code-interpreter-files.s3.amazonaws.com%2F3067b537-ea12-497a-b97c-2cd1d5e9db5e%2F19d97a45-e785-4185-ab0c-60c81de09e42%2Findex.html%3Fresponse-content-disposition%3Dattachment%253B%2520filename%253Dindex.html%253B%2520filename%252A%253DUTF-8%2527%2527index.html%26AWSAccessKeyId%3DASIA2F3EMEYEW4GR7BNH%26Signature%3DvVMAWW8sOzMzrmrEJoueRZnIho8%253D%26x-amz-security-token%3DIQoJb3JpZ2luX2VjECIaCXVzLWVhc3QtMSJIMEYCIQDkdIKBrlMKXRQRMv0Dy937Viri8aiUni2N4sFMHZmp6AIhALhWc6v4lwPT8WFItqF6SyC4LV%252BACV1iaJcouhyEYNEDKvwECOv%252F%252F%252F%252F%252F%252F%252F%252F%252F%252FwEQARoMNjk5NzUzMzA5NzA1IgzqKKSaPnh9KcnRXuIq0ARDLDbMp73Q0ZjPHsAQ34YMolDapupw7LjZD4RzerIiwODAYPf9fvhTubHWomzUZy%252FHz8OFrYHy3YZlH7nXksokNcYPMw05HxxmLq3UDbFWouqP6EjMKwPyGnaczlT0P%252BhD3y4esDh6s2z6R0oQf8AXm6fyfvtnlI6y5iPGmwJCWsVqxgNioDzsANHYax9ocj7sQXVD6F97Xrng9bshI%252BQqrzym%252BbNLan49RNK3QNLAMBIf%252Bmyn50LGXUhRr6bk%252FGOTV0J9PJ7rfwfpJr46T1amAaptfZiNOzgGfLzSptKxJKN4Cj5zio7taFlk8jhAt4ybAnmTF5n2jdZje2gA8dctQjpuX7jNhFZfTA%252FEkGhs5g7FKTUoN1M%252FnADNjY%252Br%252FwWPa7tKroC5tgI5IkSuOwlbZ8NlwMnlbgTFDJ1mjv02%252FlolxZPvksimznLM%252BFK%252FD9CK9AlP57OYS%252B90CtQ34RmskqzLvtvtWWUwuB28e2ZOfQI0KTaO%252BLdtvGNd%252BTpL%252Ft%252BtC3Zt147orU2k5ioRGNzZ1tb7rtALUBsGc1MH0RYxDmGAQYaWXUQH3uiElzVSNYKmCyC0T59ytLq1d%252FRZR%252BU3kIxagbwI0Wvpt9W%252BpGVhu9%252F0JTB1e1eaqwEsDdX4h6O1FlzLSSBlZab3bIMoh9lsP2dWNVFR4V58I9ClRJ0GGIcXNtVZkbHCOjvFXp%252BYoOIgQNbJbt4TH1LqskqN%252F2I0rBeZy%252BR%252F3fXq%252FGwmo4phREBnndjcDgTIay1y5X41E9X4rptPbgjqLCbEvEbSyduwMPiirM0GOpcBgeaYJYqXGwoFkn9sIEppSTeXMTjn1ydMFmSnXQLl8euPY0XUfJhZzUTY%252BsYz9HMSGNeCd%252FQnecdW9cHCFZ7FFG79IXufmF9ycOpqXb4h0Mwt4LOoiF7LCzdPU4esk3%252Fucaf88fQm1TyXIELBn0maUcgSJUl4YePYkMgnYLbzfFWLXTYmOpXfbNGRs18iP0B8VIF1I9lN0g%253D%253D%26Expires%3D1772821551&amp;app=brave.exe&amp;css=3&amp;js=1&amp;rel=1&amp;rji=1&amp;sbe=1"></script><script type="text/javascript" nonce="8637474d039d40ec9f817324a9e" src="//local.adguard.org?ts=1772820455602&amp;name=AdGuard%20Extra&amp;name=AdGuard%20Popup%20Blocker&amp;type=user-script"></script></head>
+</head>
 <body>
   <h1>Image Converter</h1>
   <p class="subtitle">Upload an image, choose a format, and convert instantly</p>
@@ -243,6 +243,12 @@
     </div>
   </div>
 
+  <!-- Set your Railway backend URL here once deployed -->
+  <script>
+    // For GitHub Pages: point to your Railway backend
+    // For local dev: leave commented out (defaults to localhost:5000)
+    // window.__API_BASE__ = "https://your-railway-app.up.railway.app/image-converter";
+  </script>
   <script src="frontend/dist/app.js"></script>
 </body>
 </html>

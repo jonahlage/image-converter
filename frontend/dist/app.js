@@ -1,5 +1,6 @@
 "use strict";
-const API_BASE = "http://localhost:5000/image-converter";
+// API_BASE: reads from a global set by the hosting page, or falls back to localhost for development
+const API_BASE = window.__API_BASE__ || "http://localhost:5000/image-converter";
 const state = {
     originalFile: null,
     originalPreviewUrl: null,

@@ -1,4 +1,4 @@
-declare const API_BASE = "http://localhost:5000/image-converter";
+declare const API_BASE: any;
 interface ConversionState {
     originalFile: File | null;
     originalPreviewUrl: string | null;

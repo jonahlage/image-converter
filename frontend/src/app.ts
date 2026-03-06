@@ -1,4 +1,5 @@
-const API_BASE = "http://localhost:5000/image-converter";
+// API_BASE: reads from a global set by the hosting page, or falls back to localhost for development
+const API_BASE = (window as any).__API_BASE__ || "http://localhost:5000/image-converter";
 
 interface ConversionState {
   originalFile: File | null;
