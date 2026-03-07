@@ -4,7 +4,7 @@ dockerfilePath = "Dockerfile"
 
 [deploy]
 # Health check endpoint (Railway pings this to confirm the app is alive)
-healthcheckPath = "/image-converter/local/convert"
+healthcheckPath = "/health"
 healthcheckTimeout = 300
 # Restart on failure
 restartPolicyType = "ON_FAILURE"
