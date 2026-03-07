@@ -38,12 +38,8 @@ WORKDIR /app
 # Copy published output from build stage
 COPY --from=build /app/publish .
 
-# Railway sets PORT env var — ASP.NET reads ASPNETCORE_URLS
-# This tells the app: "listen on whatever port Railway assigns"
-ENV ASPNETCORE_URLS=http://+:${PORT:-8080}
-
-# Expose the default port
+# Expose default port (Railway overrides via PORT env var at runtime)
 EXPOSE 8080
 
-# Start the API
+# Start the API — Program.cs reads PORT env var and binds accordingly
 ENTRYPOINT ["dotnet", "ImageConverter.API.dll"]
